@@ -1,12 +1,9 @@
 const screen = document.querySelector('.screen');
+const em = screen.querySelector('em');
 const numbers = screen.querySelectorAll('span');
-const em = screen.querySelectorAll('em');
 
 setInterval(() => {
 	em.innerText = new Date().getHours() < 12 ? 'am' : 'pm';
-	//getTime 함수가 시간, 분, 초를 배열로 반환
-	//반환된 배열값을 그대로 반복하면서 setTime 함수에 인수로 전달
-	//setTime 함수는 반복을 돌면서 시간, 분, 초가 1자리수일 때 앞에 0을 붙여주는 공통로직을 반복처리
 	getTime().forEach((num, idx) => setTime(num, idx));
 }, 1000);
 
