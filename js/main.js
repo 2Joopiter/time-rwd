@@ -33,6 +33,19 @@ function changeTheme() {
 	const hr = new Date().getHours();
 	main.className = '';
 
+	const data = [
+		{ cond: hr >= 5 && hr < 10, name: 'morning' },
+		{ cond: hr >= 10 && hr < 16, name: 'afternoon' },
+		{ cond: hr >= 16 && hr < 20, name: 'evening' },
+		{ cond: hr >= 20 || hr < 5, name: 'night' },
+	];
+
+	data.forEach((el) => {
+		if (el.cond) main.classList.add(el.name);
+	});
+
+	/*
+
 	if (hr >= 5 && hr < 10) {
 		main.classList.add('morning');
 	}
@@ -45,4 +58,6 @@ function changeTheme() {
 	if (hr >= 20 || hr < 5) {
 		main.classList.add('night');
 	}
+
+  */
 }
