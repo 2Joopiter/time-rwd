@@ -185,6 +185,10 @@ main.afternoon {
 }
 main.afternoon figure {
   background-image: url(../img/phone_afternoon.png);
+  color: #555;
+}
+main.afternoon figure .screen {
+  color: #555;
 }
 
 main.evening {
@@ -196,6 +200,9 @@ main.evening figure {
 
 main.night {
   background-image: url(../img/bg_night.jpg);
+}
+main.night nav {
+  color: #fff;
 }
 main.night figure {
   background-image: url(../img/phone_night.png);
