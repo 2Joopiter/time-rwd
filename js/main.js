@@ -3,8 +3,19 @@ const screen = document.querySelector('.screen');
 const em = screen.querySelector('em');
 const numbers = screen.querySelectorAll('span');
 
+//자주 바뀔만한 값을 전역변수 형태로 객체를 배열로 묶어서 따로 빼서 관리.
+//해당 값이 아래 함수에서 호출되도록 처리
+
+const data = [
+	{ cond: new Date().getHours() >= 5 && new Date().getHours() < 10, name: 'morning' },
+	{ cond: new Date().getHours() >= 10 && new Date().getHours() < 16, name: 'afternoon' },
+	{ cond: new Date().getHours() >= 16 && new Date().getHours() < 20, name: 'evening' },
+	{ cond: new Date().getHours() >= 20 || new Date().getHours() < 5, name: 'night' },
+];
+
 setInterval(() => {
-	changeTheme();
+	//data 전역변수를 인수로 받아서 호출처리
+	changeTheme(data);
 	em.innerText = new Date().getHours() < 12 ? 'am' : 'pm';
 	getTime().forEach((num, idx) => setTime(num, idx));
 }, 1000);
@@ -29,16 +40,11 @@ function setTime(num, index) {
 }
 
 // 시간에 따른 테마 변경 함수
-function changeTheme() {
-	const hr = new Date().getHours();
-	main.className = '';
+function changeTheme(info) {
+	//전역 data를 바로 활용하는 것이 아닌 info라는 파라미터를 통해서 전달받도록 처리
 
-	const data = [
-		{ cond: hr >= 5 && hr < 10, name: 'morning' },
-		{ cond: hr >= 10 && hr < 16, name: 'afternoon' },
-		{ cond: hr >= 16 && hr < 20, name: 'evening' },
-		{ cond: hr >= 20 || hr < 5, name: 'night' },
-	];
+	//const hr = new Date().getHours();
+	main.className = '';
 
 	data.forEach((el) => {
 		if (el.cond) main.classList.add(el.name);
