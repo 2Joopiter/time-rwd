@@ -23,10 +23,10 @@ const data = [
 
 setInterval(setWatch, 1000);
 
+// 순서1 - 로딩되자마자 1초간격으로 changeTheme 반복 실행
 let timer = setInterval(() => changeTheme(data), 1000);
 
-//이벤트1 (함수호출)
-
+// 순서2 - 메뉴버튼 클릭시 강제로 clearInterval(timer)로 changeTheme반복 중지
 btns.forEach((btn) => {
 	// 각 버튼 클릭시
 	btn.addEventListener('click', (e) => {
@@ -43,9 +43,9 @@ btns.forEach((btn) => {
 	});
 });
 
-//auto버튼 클릭시 다시 자동 테마변경기능 실행하면서 모든 버튼 비활성화
+// 순서3 - auto 버튼 클릭시 다시 1초간격으로 changeTheme 반복실행
 btnAuto.addEventListener('click', () => {
-	timer = setInterval(() => changeTheme(data), 1000);
+	timer = setInterval(() => changeTheme(data), 1000); // 여기서 let 선언을 하면 외부해서 호출이 안되니까 타이머가 자동으로 작동을 안하나?
 	btns.forEach((btn) => btn.classList.remove('on'));
 });
 
