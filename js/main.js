@@ -13,11 +13,13 @@ const data = [
 
 //여기까지 전역변수
 
-let timer = setInterval(() => {
-	changeTheme(data);
-	em.innerText = new Date().getHours() < 12 ? 'am' : 'pm';
-	getTime().forEach((num, idx) => setTime(num, idx));
-}, 1000);
+// 이하 1초마다 전자시계 출력 함수 호출
+// 특정 함수에 콜백 함수를 전달할 때 함수 호출구문이 아닌 정의형태로 전달
+// setWatch처럼 함수명만 넣으면 정의형태이기 때문에 바로 등록 가능
+// 아래처럼 changeTheme 같은 경우는 data라는 인수를 전달해야 하기 때문에 ()를 붙여야 함 > 괄호를 붙이는 순간 호출형태로 변경되므로 다시 익명함수 형태로 호출문을 감싸줘서 정의형태로 만들어줘야 함
+setInterval(setWatch, 1000);
+
+let timer = setInterval(() => changeTheme(data), 1000);
 
 //이벤트1 (함수호출)
 
@@ -28,7 +30,7 @@ btns.forEach((btn) => {
 		btns.forEach((btn) => btn.classList.remove('on'));
 		e.currentTarget.classList.add('on');
 
-		// 이하 자동 롤링기능 끊어주는 기능 (setInterval을 끊어줌)
+		// 이하 자동 롤링기능 끊어주는 기능 (setInterval을 끊어줌-1초마다 작동하기 때문에 안 끊어주면 자동으로 다시 조건에 맞게 테마가 변경됨)
 		clearInterval(timer);
 		//메인요소의 모든 클래스 제어
 		main.className = '';
@@ -36,6 +38,11 @@ btns.forEach((btn) => {
 		main.classList.add(e.currentTarget.innerText.toLowerCase());
 	});
 });
+
+function setWatch() {
+	em.innerText = new Date().getHours() < 12 ? 'am' : 'pm';
+	getTime().forEach((num, idx) => setTime(num, idx));
+}
 
 function getTime() {
 	const now = new Date();
